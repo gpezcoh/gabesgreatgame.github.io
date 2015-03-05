@@ -1,0 +1,99 @@
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font: 13px Helvetica, Arial;}
+form { background: #000; padding: 1px; height:50%;}
+form input { border: 0; padding: 10px; width: 80%; margin-right: .5%; }
+form button { width: 19%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+#health {
+  padding: 3em; 
+  font-size: 20px;
+}
+#health2 {
+  padding: 3em; 
+  font-size: 20px;
+}
+#form1 {
+  display: none;
+  border: 3px solid black;
+}
+#redbar{
+  height: 10px;
+  width: 500px;
+  background-color: red;
+  border: solid black 1px;
+}
+ #redbar2{
+  height: 10px;
+  width: 500px;
+  background-color: red;
+  border: solid black 1px;
+}
+#attack{
+    margin-top: 50px;
+}
+#heal{
+    margin-top: 50px;
+}
+#attack2{
+    margin-top: 50px;
+}
+#heal2{
+    margin-top: 50px;
+}
+#everything{
+  display: none;
+}
+#play{
+  font-size: 150px;
+  margin: 50px;
+}
+/* #redcircle{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: red;
+  margin: 150px;
+  margin-left: 200px
+}
+#bluecircle{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: blue;
+  margin: 150px 0 0 300px;
+}*/
+#littlebluecircle{
+  display: none;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: blue;
+  margin: 175px 0 0 75px;
+}
+#redplayer{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: red;
+  margin: 150px;
+  margin-left: 200px
+}
+ #blueplayer{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: blue;
+  margin: 150px;
+  margin-left: 200px
+}
+ #greenplayer{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: green;
+  margin: 150px;
+  margin-left: 200px
+}
+#messages { list-style-type: none; margin: 0; padding: 0;}
+#messages li { padding: 5px 10px; }
+#messages li:nth-child(odd) { background: #eee; }

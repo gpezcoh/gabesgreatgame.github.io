@@ -1,9 +1,13 @@
-var app = require('express')();
+var path = require('path');
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+app.use(express.static(path.join(__dirname, '')));
+
 app.get('/', function(req, res){
-  res.sendFile('/Users/gpezanoskicohen/Documents/nodechat2/index.html');
+  res.sendFile('index.html');
 });
 
 io.on('connection', function(socket){
