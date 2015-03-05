@@ -1,0 +1,608 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gabriel Pezanoski-Cohen</title>
+
+    <!-- Bootstrap -->
+    <link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial;}
+      form { background: #000; padding: 1px; height:50%;}
+      form input { border: 0; padding: 10px; width: 80%; margin-right: .5%; }
+      form button { width: 19%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #health {
+        padding: 3em; 
+        font-size: 20px;
+      }
+      #health2 {
+        padding: 3em; 
+        font-size: 20px;
+      }
+      #form1 {
+        display: none;
+        border: 3px solid black;
+      }
+      #redbar{
+        height: 10px;
+        width: 500px;
+        background-color: red;
+        border: solid black 1px;
+      }
+       #redbar2{
+        height: 10px;
+        width: 500px;
+        background-color: red;
+        border: solid black 1px;
+      }
+      #attack{
+          margin-top: 50px;
+      }
+      #heal{
+          margin-top: 50px;
+      }
+      #attack2{
+          margin-top: 50px;
+      }
+      #heal2{
+          margin-top: 50px;
+      }
+      #everything{
+        display: none;
+      }
+      #play{
+        font-size: 150px;
+        margin: 50px;
+      }
+     /* #redcircle{
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        background-color: red;
+        margin: 150px;
+        margin-left: 200px
+      }
+      #bluecircle{
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        background-color: blue;
+        margin: 150px 0 0 300px;
+      }*/
+      #littlebluecircle{
+        display: none;
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        background-color: blue;
+        margin: 175px 0 0 75px;
+      }
+      #redplayer{
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        background-color: red;
+        margin: 150px;
+        margin-left: 200px
+      }
+       #blueplayer{
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        background-color: blue;
+        margin: 150px;
+        margin-left: 200px
+      }
+       #greenplayer{
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        background-color: green;
+        margin: 150px;
+        margin-left: 200px
+      }
+      #messages { list-style-type: none; margin: 0; padding: 0;}
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+    <script>
+// function changenum(newnum)
+// {
+//     var number = document.getElementById('testnumber');
+//     number = newnum;
+//   }
+// </script>
+  </head>
+  <body>
+  <div id='everything'>
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class="col-md-12">
+          <div class='col-md-4'>
+            <div id='health'>100</div>
+            <div id='redbar'></div>
+          </div>
+          <div class='col-md-4'>
+            <button type="button" class="btn btn-primary" id="attack">Attack</button>
+            <button type="button" class="btn btn-success" id="heal">Heal</button>
+          </div>
+          <div class="col-md-4">
+            <div id="form1">
+              <ul id="messages"></ul>
+              <form action="">
+                <input id="m" autocomplete="off" /><button>Send</button>
+              </form>
+            </div>
+            <button type="button" class="btn btn-success" id="chatcontrol">Show/Hide Chat</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class="col-md-12">
+          <div class='col-md-4'>
+            <div id='health2'>100</div>
+            <div id='redbar2'></div>
+          </div>
+          <div class='col-md-4'>
+            <button type="button" class="btn btn-primary" id="attack2">Attack</button>
+            <button type="button" class="btn btn-success" id="heal2">Heal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='container-fluid'>
+    <div class='row'>
+        <div class="col-md-12">
+          <div class='col-md-5'>
+            <div id='player1'></div>
+          </div>
+          <div class='col-md-2'>
+            <div id='littlebluecircle'></div>
+          </div>
+          <div class='col-md-5'>
+              <div id='player2'></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   <button type="button" class="btn btn-primary" id="play">Play my game!</button>
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class="col-md-12">
+          <div class='col-md-4'>
+            <button class="playerbutton" id="redplayer"></button>
+          </div>
+          <div class='col-md-4'>
+            <button class="playerbutton" id="blueplayer"></button>
+          </div>
+          <div class='col-md-4'>
+            <button class="playerbutton" id="greenplayer"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    
+<script>
+  var socket = io();
+  var numnum = 100;
+  var numnum2 = 100;
+  var bullshit = 50;
+  var player1 = new Player(1,0,100)
+  var player2 = new Player(2,0,100)
+
+  function Player(number,type,life)
+  {
+    this.number = number;
+    this.type = type;
+    this.life = life;
+  }
+
+  Player.setnumber = function(num) 
+    {
+        number = num;
+    };
+
+    Player.settype = function(typ) 
+    {
+        type = typ;
+    };
+
+  function disablin1()
+  {
+    $('#attack').prop('disabled', true);
+     $('#attack2').prop('disabled', false);
+     $('#heal').prop('disabled', true);
+     $('#heal2').prop('disabled', false);
+  }
+  function disablin2()
+  {
+    $('#attack').prop('disabled', false);
+     $('#attack2').prop('disabled', true);
+     $('#heal').prop('disabled', false);
+     $('#heal2').prop('disabled', true);
+  }
+  function allow(stuff)
+  {
+    $('#' + stuff).prop('disabled', false);
+  }
+  function disallow(otherstuff)
+  {
+    $('#' + otherstuff).prop('disabled', true);
+  }
+
+  function disallowplayers()
+  {
+    $('#redplayer').prop('disabled', true);
+    $('#blueplayer').prop('disabled', true);
+    $('#greenplayer').prop('disabled', true);
+  }
+
+  function selectplayer(player){
+    $('#' + player).css({
+          'border' : "solid black 5px",
+        },200);
+  }
+
+  function setlittleblue(player)
+  {
+    if (player === 1)
+    {
+        $('#littlebluecircle').css({
+              'margin-left' : "-=350px",
+            });
+    }
+    else if (player === 2)
+    {
+        $('#littlebluecircle').css({
+              'margin-left' : "+=350px",
+            });
+    }
+  }
+
+  function attacking(number, type)
+  {
+      if(number === 1)
+      {
+        if (type === 1)
+        {
+          if (player2.life > 0)
+          {
+            player2.life = player2.life - 10;
+            $('#health2').text(player2.life);
+            $('#redbar2').animate({
+              'width' : "-=" + bullshit,
+            },100);
+            $('#player1').animate({
+              'margin-left' : "+=650px",
+            },300, function(){
+              $('#player2').animate({
+                'margin-left' : "+=100px",
+              },50, function() {
+                $('#player2').animate({
+                  'margin-left' : "-=100px",
+                },500);
+               });
+              });
+             $('#player1').animate({
+              'margin-left' : "-=650px",
+            },300);
+          }
+        }
+        else if (type === 2)
+        {
+          if (player2.life > 0)
+            {
+            player2.life = player2.life - 10;
+            $('#health2').text(player2.life);
+            $('#redbar2').animate({
+              'width' : "-=" + bullshit,
+            },100);
+             $('#littlebluecircle').show();
+             $('#littlebluecircle').animate({
+              'margin-left' : "+=675px",
+              'margin-top' : "-=50px",
+              'height' : "+=100px",
+              'width' : "+=100px",
+              'opacity' : "0.5",
+            },200, function(){
+              $('#littlebluecircle').hide();
+              $('#littlebluecircle').animate({
+              'margin-left' : "-=675px",
+              'margin-top' : "+=50px",
+              'height' : "-=100px",
+              'width' : "-=100px",
+              'opacity' : "1",    
+            },200);
+            });
+            }
+        }
+        else if (type === 3)
+        {
+
+        }
+      }
+      else if (number === 2)
+      {
+        if (type === 1)
+        {
+          if (player1.life > 0)
+          {
+          player1.life = player1.life - 10;
+            $('#health').text(player1.life);
+            $('#redbar').animate({
+              'width' : "-=" + bullshit,
+            },100);
+            $('#player2').animate({
+              'margin-left' : "-=675px",
+            },300, function(){
+              $('#player1').animate({
+                'margin-left' : "-=100px",
+              },50, function() {
+                $('#player1').animate({
+                  'margin-left' : "+=100px",
+                },500);
+               });
+              });
+             $('#player2').animate({
+              'margin-left' : "+=675px",
+            },300);
+          }
+        }
+        else if (type === 2)
+        {
+          if (player1.life > 0)
+            {
+            player1.life = player1.life - 10;
+            $('#health').text(player1.life);
+            $('#redbar').animate({
+              'width' : "-=" + bullshit,
+            },100);
+             $('#littlebluecircle').show();
+             $('#littlebluecircle').animate({
+              'margin-left' : "-=750px",
+              'margin-top' : "-=50px",
+              'height' : "+=100px",
+              'width' : "+=100px",
+              'opacity' : "0.5",
+            },200, function(){
+              $('#littlebluecircle').hide();
+              $('#littlebluecircle').animate({
+              'margin-left' : "+=750px",
+              'margin-top' : "+=50px",
+              'height' : "-=100px",
+              'width' : "-=100px",
+              'opacity' : "1",    
+            },200);
+              });
+           }
+        }
+        else if (type === 3)
+        {
+
+        }
+      }
+  }
+
+  function setplayer(player,type)
+  {
+      if (type === 1)
+      {
+        $('#' + player).css({
+        'height' : "50px",
+        'width' : "50px",
+        'border-radius' : "50%",
+        'background-color' : "red",
+        'margin' : "150px",
+        'margin-left' : "200px",
+        });
+      }
+      else if (type === 2)
+      {
+        $('#' + player).css({
+        'height' : "50px",
+        'width' : "50px",
+        'border-radius' : "50%",
+        'background-color' : "blue",
+        'margin' : "150px",
+        'margin-left' : "200px",
+        });
+      }
+      else if (type === 3)
+      {
+        $('#' + player).css({
+        'height' : "50px",
+        'width' : "50px",
+        'border-radius' : "50%",
+        'background-color' : "green",
+        'margin' : "150px",
+        'margin-left' : "200px",
+        });
+      }
+  }
+  $(document).ready(function(){
+      $('#play').prop('disabled', true);
+  });
+  $('form').submit(function(){
+    socket.emit('chat message', $('#m').val());
+    $('#m').val('');
+    return false;
+  });
+  socket.on('chat message', function(msg){
+    $('#messages').append($('<li>').text(msg));
+  });
+  $('#attack').click(function(){
+    socket.emit('attack');
+  });
+  socket.on('attack', function(num){
+    if (player1.type === 1)
+     {
+        attacking(1,1);
+     }
+     else if (player1.type === 2)
+     {
+        attacking(1,2);
+     }
+     else if (player1.type === 3)
+     {
+        attacking(1,3);
+     }
+     disablin1();  
+  });
+
+  $('#heal').click(function(){
+    socket.emit('heal');
+  });
+  socket.on('heal', function(num){
+    if (player1.life < 100)
+    {
+          player1.life = player1.life + 10;
+        $('#health').text(numnum);
+        $('#redbar').animate({
+          'width' : "+=" + bullshit,
+        },100);
+        $('#player1').animate({
+          'opacity' : "0.2",
+        },200, function() {
+          $('#player1').animate({
+          'opacity' : "1",
+        },200);
+      });
+      disablin1();
+    }
+  });
+  $('#attack2').click(function(){
+    socket.emit('attack2');
+  });
+  socket.on('attack2', function(num){
+     if (player2.type === 1)
+     {
+        attacking(2,1);
+     }
+     else if (player2.type === 2)
+     {
+        attacking(2,2);
+     }
+     else if (player2.type === 3)
+     {
+        attacking(2,3);
+     }
+     disablin2();
+  });
+
+  $('#heal2').click(function(){
+    socket.emit('heal2');
+  });
+  socket.on('heal2', function(num){
+    if (player2.life < 100)
+    {
+      player2.life = player2.life + 10;
+    $('#health2').text(player2.life);
+    $('#redbar2').animate({
+      'width' : "+=" + bullshit,
+    },100);
+     $('#player2').animate({
+          'opacity' : "0.2",
+        },200, function() {
+          $('#player2').animate({
+          'opacity' : "1",
+        },200);
+      });
+     disablin2();
+    }
+  });
+
+   $('#play').click(function(){
+    socket.emit('play');
+  });
+  socket.on('play', function(){
+    $('#everything').show();
+    $('#play').hide();
+    $('#redplayer').hide();
+    $('#blueplayer').hide();
+    $('#greenplayer').hide();
+  });
+
+  $('#redplayer').click(function(){
+    socket.emit('redplayer');
+  });
+  socket.on('redplayer', function(){
+    if (player1.type === 0)
+    {
+      player1.type = 1;
+      selectplayer('redplayer');
+      disallow('redplayer');
+      setplayer('player1',1);
+    }
+    else
+    {
+      player2.type = 1;
+      selectplayer('redplayer');
+      disallowplayers();
+      setplayer('player2',1);
+      allow('play');
+    }
+});
+
+   $('#blueplayer').click(function(){
+    socket.emit('blueplayer');
+  });
+  socket.on('blueplayer', function(){
+    if (player1.type === 0)
+    {
+      player1.type = 2;
+      selectplayer('blueplayer');
+      disallow('blueplayer');
+      setplayer('player1',2);
+      setlittleblue(1);
+    }
+    else
+    {
+      player2.type = 2;
+      selectplayer('blueplayer');
+      disallowplayers();
+      setplayer('player2',2);
+      setlittleblue(2);
+      allow('play');
+    }
+  });
+   $('#greenplayer').click(function(){
+    socket.emit('greenplayer');
+  });
+  socket.on('greenplayer', function(){
+    if (player1.type === 0)
+    {
+      player1.type = 3;
+      selectplayer('greenplayer');
+      disallow('greenplayer');
+      setplayer('player1',3);
+    }
+    else
+    {
+      player2.type = 3;
+      selectplayer('greenplayer');
+      disallowplayers();
+      setplayer('player2',3);
+      allow('play');
+    }
+  });
+
+   $('#chatcontrol').click(function(){
+    socket.emit('chatcontrol');
+  });
+  socket.on('chatcontrol', function(){
+    $('#form1').toggle();
+  });
+
+</script>
+  </body>
+</html>
