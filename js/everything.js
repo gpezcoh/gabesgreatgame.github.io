@@ -597,6 +597,10 @@ function animateMe2(check1,check2,speed,playerr){
         {
             if (attack === 1)
             {
+                socket.emit('gregsattack', {
+                  'health': player2.life,
+                  'bullshit': "this is a test"
+                })
                 fireattackone(1);
             }
             else if (attack === 2)

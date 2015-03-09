@@ -17,6 +17,16 @@ app.get('/', function(req, res){
 //   });
 // });
 
+function Player(number,type,life)
+{
+  this.number = number;
+  this.type = type;
+  this.life = life;
+}
+
+var player1 = new Player(1,0,100);
+var player2 = new Player(2,0,100);
+
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
      io.emit('chat message', msg);
@@ -54,6 +64,10 @@ io.on('connection', function(socket){
      socket.on('chatcontrol', function(){
      io.emit('chatcontrol');
   });
+     socket.on('gregsattack', function(data){
+      console.log(data.bullshit);
+      console.log(data.health);
+     })
 });
 
 http.listen(3000, function(){
