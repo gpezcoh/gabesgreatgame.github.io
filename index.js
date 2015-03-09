@@ -10,12 +10,12 @@ app.get('/', function(req, res){
   res.sendFile('index.html');
 });
 
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
+// io.on('connection', function(socket){
+//   console.log('a user connected');
+//   socket.on('disconnect', function(){
+//     console.log('user disconnected');
+//   });
+// });
 
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
@@ -29,6 +29,12 @@ io.on('connection', function(socket){
   });
    socket.on('attack2', function(num){
      io.emit('attack2', num);
+  });
+    socket.on('attack5', function(num){
+     io.emit('attack5', num);
+  });
+      socket.on('attack6', function(num){
+     io.emit('attack6', num);
   });
    socket.on('heal2', function(num){
      io.emit('heal2', num);

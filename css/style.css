@@ -36,6 +36,12 @@
       #attack2{
           margin-top: 50px;
       }
+      #attack5{
+          margin-top: 50px;
+      }
+       #attack6{
+          margin-top: 50px;
+      }
       #heal2{
           margin-top: 50px;
       }
@@ -62,6 +68,8 @@
         margin: 150px 0 0 300px;
       }*/
       #littlebluecircle{
+        position: relative;
+        z-index: 4;
         display: none;
         height: 10px;
         width: 10px;
@@ -118,6 +126,82 @@
           position: relative;
           margin: 190px 0 0 50px;
           z-index: 2;
+        }
+        #fireball{
+          position: relative;
+          z-index: 2;
+        display: none;
+        margin: -30px 0 0 0;
+        }
+        #littlefireball{
+        /*  display: none;*/
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-color: orange;
+        margin: 0 0 0 -7px;
+        position: relative;
+        z-index: 1;
+        }
+        #fireflame1{
+          color: red;
+          font-size: 20px;
+          position: relative;
+          z-index: 2;
+          margin-top: -25px;
+        }
+        #fireflame2{
+          color: yellow;
+          font-size: 10px;
+          position: relative;
+          z-index: 3;
+          margin-left: 3px;
+          margin-top: -14px;
+          /*margin-left: -15px;
+          margin-top: -30px;*/
+         
+        }
+        #waterspout{
+          display: none;
+          position: relative;
+          z-index: 5;
+          margin-top: 10px;
+        }
+        #waterspoutbody{
+          height: 10px;
+          width: 50px;
+          background-color: blue;
+        }
+        #waterspouttop{
+          height: 20px;
+          width: 70px;
+          background-color: #cccccc;
+          margin-top: -40px;
+          margin-left: -10px
+        }
+        #waterspoutball1{
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
+          background-color: #cccccc;
+          margin-left: -20px;
+          margin-top: -25px;
+        }
+         #waterspoutball2{
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
+          background-color: #cccccc;
+          margin-left: 35px;
+          margin-top: -40px;
+        }
+        #waterspoutball3{
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
+          background-color: #cccccc;
+          margin-left: 8px;
+          margin-top: -40px;
         }
       #messages { list-style-type: none; margin: 0; padding: 0;}
       #messages li { padding: 5px 10px; }

@@ -4,6 +4,7 @@
   var bullshit = 50;
   var player1 = new Player(1,0,100)
   var player2 = new Player(2,0,100)
+  var fireballactive = 0;
 
   function Player(number,type,life)
   {
@@ -25,14 +26,47 @@
   function disablin1()
   {
     $('#attack').prop('disabled', true);
-     $('#attack2').prop('disabled', false);
+    $('#attack2').prop('disabled', true);
+     $('#attack5').prop('disabled', false);
+     if (player2.type === 1)
+    {
+      if (fireballactive === 1)
+      {
+        $('#attack6').prop('disabled', true);
+      }
+      else
+      {
+        $('#attack6').prop('disabled', false);
+      }
+    }
+    else 
+    {
+      $('#attack6').prop('disabled', false);
+    }
      $('#heal').prop('disabled', true);
      $('#heal2').prop('disabled', false);
   }
   function disablin2()
   {
     $('#attack').prop('disabled', false);
-     $('#attack2').prop('disabled', true);
+    if (player1.type === 1)
+    {
+      // alert("yolo" + fireballactive);
+      if (fireballactive === 1)
+      {
+        $('#attack2').prop('disabled', true);
+      }
+      else
+      {
+        $('#attack2').prop('disabled', false);
+      }
+    }
+    else 
+    {
+      $('#attack2').prop('disabled', false);
+    }
+     $('#attack5').prop('disabled', true);
+     $('#attack6').prop('disabled', true);
      $('#heal').prop('disabled', false);
      $('#heal2').prop('disabled', true);
   }
@@ -74,6 +108,22 @@
     }
   }
 
+function setlittlered(player)
+  {
+    if (player === 1)
+    {
+        $('#fireball').css({
+              'margin-left' : "-=320px",
+            });
+    }
+    else if (player === 2)
+    {
+        $('#fireball').css({
+              'margin-left' : "+=365px",
+            });
+    }
+  }
+
   function setgreenlines(player)
   {
     if (player === 1)
@@ -90,13 +140,26 @@
     }
   }
 
-  function attacking(number, type)
+function setwaterspout(player)
   {
-      if(number === 1)
-      {
-        if (type === 1)
-        {
-          if (player2.life > 0)
+    if (player === 1)
+    {
+        $('#waterspout').css({
+              'margin-left' : "+=396",
+            });
+    }
+    else if (player === 2)
+    {
+        $('#waterspout').css({
+              'margin-left' : "-=288",
+            });
+    }
+  }
+  function fireattackone(number)
+  {
+    if (number === 1)
+    {
+      if (player2.life > 0)
           {
             player2.life = player2.life - 10;
             $('#health2').text(player2.life);
@@ -119,68 +182,7 @@
             },300);
           }
         }
-        else if (type === 2)
-        {
-          if (player2.life > 0)
-            {
-            player2.life = player2.life - 10;
-            $('#health2').text(player2.life);
-            $('#redbar2').animate({
-              'width' : "-=" + bullshit,
-            },100);
-             $('#littlebluecircle').show();
-             $('#littlebluecircle').animate({
-              'margin-left' : "+=675px",
-              'margin-top' : "-=50px",
-              'height' : "+=100px",
-              'width' : "+=100px",
-              'opacity' : "0.5",
-            },200, function(){
-              $('#littlebluecircle').hide();
-              $('#littlebluecircle').animate({
-              'margin-left' : "-=675px",
-              'margin-top' : "+=50px",
-              'height' : "-=100px",
-              'width' : "-=100px",
-              'opacity' : "1",    
-            },200);
-            });
-            }
-        }
-        else if (type === 3)
-        {
-            if (player2.life > 0)
-          {
-            player2.life = player2.life - 10;
-            $('#health2').text(player2.life);
-            $('#redbar2').animate({
-              'width' : "-=" + bullshit,
-            },100);
-            $('#greenline1').animate({
-              'borderWidth' : "+=3px",
-            },100);
-            $('#greenline2').animate({
-              'borderWidth' : "+=3px",
-            },100);
-            $('#greenlines').animate({
-              'opacity' : "1",
-            },200, function(){
-              $('#greenlines').animate({
-                 'opacity' : "0",
-              },200);
-          });
-            $('#greenline1').animate({
-              'borderWidth' : "-=3px",
-            });
-            $('#greenline2').animate({
-              'borderWidth' : "-=3px",
-            });
-        }
-      }
-    }
-      else if (number === 2)
-      {
-        if (type === 1)
+        else if (number === 2)
         {
           if (player1.life > 0)
           {
@@ -205,9 +207,48 @@
             },300);
           }
         }
-        else if (type === 2)
-        {
-          if (player1.life > 0)
+  }
+
+  function waterattackone(number)
+  {
+    if (fireballactive)
+    {
+      $('#fireball').css({
+        'opacity' : "0",
+      });
+      fireballactive = 0;
+    }
+    if (number === 1)
+    {
+        if (player2.life > 0)
+            {
+            player2.life = player2.life - 10;
+            $('#health2').text(player2.life);
+            $('#redbar2').animate({
+              'width' : "-=" + bullshit,
+            },100);
+             $('#littlebluecircle').show();
+             $('#littlebluecircle').animate({
+              'margin-left' : "+=675px",
+              'margin-top' : "-=50px",
+              'height' : "+=100px",
+              'width' : "+=100px",
+              'opacity' : "0.5",
+            },200, function(){
+              $('#littlebluecircle').hide();
+              $('#littlebluecircle').animate({
+              'margin-left' : "-=675px",
+              'margin-top' : "+=50px",
+              'height' : "-=100px",
+              'width' : "-=100px",
+              'opacity' : "1",    
+            },200);
+            });
+          }
+    }
+    else if (number === 2)
+    {
+      if (player1.life > 0)
             {
             player1.life = player1.life - 10;
             $('#health').text(player1.life);
@@ -232,10 +273,44 @@
             },200);
               });
            }
+    }
+  }
+
+  function grassattackone(number)
+  {
+    if (number === 1)
+    {
+       if (player2.life > 0)
+          {
+            player2.life = player2.life - 10;
+            $('#health2').text(player2.life);
+            $('#redbar2').animate({
+              'width' : "-=" + bullshit,
+            },100);
+            $('#greenline1').animate({
+              'borderWidth' : "+=3px",
+            },100);
+            $('#greenline2').animate({
+              'borderWidth' : "+=3px",
+            },100);
+            $('#greenlines').animate({
+              'opacity' : "1",
+            },200, function(){
+              $('#greenlines').animate({
+                 'opacity' : "0",
+              },200);
+          });
+            $('#greenline1').animate({
+              'borderWidth' : "-=3px",
+            });
+            $('#greenline2').animate({
+              'borderWidth' : "-=3px",
+            });
         }
-        else if (type === 3)
-        {
-           if (player1.life > 0)
+    }
+    else if (number === 2)
+    {
+      if (player1.life > 0)
           {
             player1.life = player1.life - 10;
             $('#health').text(player1.life);
@@ -261,7 +336,385 @@
             $('#greenline2').animate({
               'borderWidth' : "-=3px",
             });
-        } 
+          } 
+    }
+  }
+
+function animateMe2(check1,check2,speed,playerr){
+   if (playerr === 1)
+  {
+   $('#player1').css({
+      'z-index': "3",
+    });
+ }
+ else
+ {
+    $('#player2').css({
+      'z-index': "3",
+    });
+ }
+    $('#fireball').animate(
+        {
+        'margin-left': "-=100px",
+        },
+        {
+        duration: speed,
+        complete: function(){
+          if (playerr === 1)
+            {
+              if (check1 === player1.life)
+                {
+                  animateMe(check1,check2,speed,1);
+                }
+                else
+                {
+                  if (fireballactive === 0)
+                  {
+                  $('#fireball').hide();
+                  $('#fireball').css({
+                    'opacity' : "1",
+                  });
+                  }
+                  else
+                  {
+                    $('#fireball').hide();
+                    fireballactive = 0;
+                  }
+                }
+            }
+            else
+            {
+              if (check2 === player2.life)
+                {
+                  animateMe(check1,check2,speed,2);
+                }
+                else
+                {
+                  if (fireballactive === 0)
+                  {
+                  $('#fireball').hide();
+                  $('#fireball').css({
+                    'opacity' : "1",
+                  });
+                  }
+                  else
+                  {
+                    $('#fireball').hide();
+                    fireballactive = 0;
+                  }
+                }
+            }
+         
+        }
+    });
+}
+
+
+ function animateMe(check1,check2,speed,playerr){
+  $('#fireball').show();
+  if (playerr === 1)
+  {
+   $('#player1').css({
+      'z-index': "1",
+    });
+ }
+ else
+ {
+    $('#player2').css({
+      'z-index': "1",
+    });
+ }
+    $('#fireball').animate(
+        {
+        'margin-left': "+=100px",
+        },
+        {
+        duration: speed,
+        complete: function(){
+            if (playerr === 1)
+            {
+              if (check1 === player1.life)
+                {
+                  animateMe2(check1,check2,speed,playerr);
+                }
+                else
+                {
+                  // window.alert(fireballactive);
+                  if (fireballactive === 0)
+                  {
+                  $('#fireball').hide();
+                  $('#fireball').css({
+                    'opacity' : "1",
+                  });
+                  }
+                  else
+                  {
+                    $('#fireball').hide();
+                    fireballactive = 0;
+                  }
+                  $('#fireball').css({
+                    'margin-left': "-=100px",
+                    });
+                }
+            }
+            else
+            {
+              if (check2 === player2.life)
+                {
+                  animateMe2(check1,check2,speed,playerr);
+                }
+                else
+                {
+                  if (fireballactive === 0)
+                  {
+                  $('#fireball').hide();
+                  $('#fireball').css({
+                    'opacity' : "1",
+                  });
+                  }
+                  else
+                  {
+                    $('#fireball').hide();
+                    fireballactive = 0;
+                  }
+                  $('#fireball').css({
+                    'margin-left': "-=100px",
+                    });
+                }
+            }
+        }
+    });
+}
+
+  function fireattacktwo(number)
+  {
+    fireballactive = 1;
+    var x = player1.life;
+    var y = player2.life;
+    if (number === 1)
+    {
+      if (player2.life > 0)
+          {
+            player2.life = player2.life - 10;
+            $('#health2').text(player2.life);
+            $('#redbar2').animate({
+              'width' : "-=" + bullshit,
+            },100);
+            var c = 0;
+            animateMe(x,y,500,1);
+          }
+    }
+    else if (number === 2)
+    {
+      if (player1.life > 0)
+          {
+            player1.life = player1.life - 10;
+            $('#health').text(player1.life);
+            $('#redbar').animate({
+              'width' : "-=" + bullshit,
+            },100);
+            var c = 0;
+            animateMe(x,y,500,2);
+          }
+    }
+  }
+
+  function waterattacktwo(number)
+  {
+    if (fireballactive)
+    {
+      $('#fireball').css({
+        'opacity' : "0",
+      });
+      fireballactive = 0;
+    }
+    if (number === 1)
+    {
+       if (player2.life > 0)
+          {          
+            player2.life = player2.life - 10;
+            $('#health2').text(player2.life);
+            $('#redbar2').animate({
+              'width' : "-=" + bullshit,
+            },100);
+            $("#waterspout").show();
+            $("#waterspoutbody").animate({
+              'margin-top' : "-=140px",
+              'height' : "+=140px",
+            },400);
+            $("#waterspouttop").animate({
+              'margin-top' : "-=140px",
+            },400, function() {
+              $("#waterspoutbody").animate({
+              'margin-top' : "+=140px",
+              'height' : "-=140px",
+            },400);
+            $("#waterspouttop").animate({
+              'margin-top' : "+=140px",
+            },400, function(){
+              $("#waterspout").hide();
+            });
+            });
+          }
+      }
+      else if (number === 2)
+      {
+        if (player1.life > 0)
+          {          
+            player1.life = player1.life - 10;
+            $('#health').text(player1.life);
+            $('#redbar').animate({
+              'width' : "-=" + bullshit,
+            },100);
+            $("#waterspout").show();
+            $("#waterspoutbody").animate({
+              'margin-top' : "-=140px",
+              'height' : "+=140px",
+            },400);
+            $("#waterspouttop").animate({
+              'margin-top' : "-=140px",
+            },400, function() {
+              $("#waterspoutbody").animate({
+              'margin-top' : "+=140px",
+              'height' : "-=140px",
+            },400);
+            $("#waterspouttop").animate({
+              'margin-top' : "+=140px",
+            },400, function(){
+              $("#waterspout").hide();
+            });
+            });
+          }
+      }
+  }
+ 
+
+  function attacking(number, type, attack)
+  {
+      if(number === 1)
+      {
+        if (type === 1)
+        {
+            if (attack === 1)
+            {
+                fireattackone(1);
+            }
+            else if (attack === 2)
+            {
+                fireattacktwo(1);
+            }
+            else if (attack === 3)
+            {
+              
+            }
+            else if (attack === 4)
+            {
+              
+            }
+        }
+        else if (type === 2)
+        {
+          if (attack === 1)
+            {
+                waterattackone(1);
+                fireballactive = 0;
+            }
+            else if (attack === 2)
+            {
+                waterattacktwo(1);
+                fireballactive = 0;
+            }
+            else if (attack === 3)
+            {
+              
+            }
+            else if (attack === 4)
+            {
+              
+            }
+        }
+        else if (type === 3)
+        {
+           if (attack === 1)
+            {
+                grassattackone(1);
+                fireballactive = 0;
+            }
+            else if (attack === 2)
+            {
+
+            }
+            else if (attack === 3)
+            {
+              
+            }
+            else if (attack === 4)
+            {
+              
+            }
+      }
+    }
+      else if (number === 2)
+      {
+        if (type === 1)
+        {
+          if (attack === 1)
+          {
+            fireattackone(2);
+          }
+          else if (attack ===2)
+          {
+            fireattacktwo(2);
+          }
+           else if (attack ===3)
+          {
+            
+          }
+           else if (attack ===4)
+          {
+            
+          }
+        }
+        else if (type === 2)
+        {
+          if (attack === 1)
+          {
+            waterattackone(2);
+            fireballactive = 0;
+          }
+          else if (attack ===2)
+          {
+            waterattacktwo(2);
+            fireballactive = 0;
+          }
+           else if (attack ===3)
+          {
+            
+          }
+           else if (attack ===4)
+          {
+            
+          }
+        }
+        else if (type === 3)
+        {
+           if (attack === 1)
+            {
+                grassattackone(2);
+                fireballactive = 0;
+            }
+            else if (attack === 2)
+            {
+
+            }
+            else if (attack === 3)
+            {
+              
+            }
+            else if (attack === 4)
+            {
+              
+            }
         }
       }
   }
@@ -277,6 +730,7 @@
         'background-color' : "red",
         'margin' : "150px",
         'margin-left' : "200px",
+        'position' : "relative",
         'z-index' : "1",
         });
       }
@@ -322,15 +776,33 @@
   socket.on('attack', function(num){
     if (player1.type === 1)
      {
-        attacking(1,1);
+        attacking(1,1,1);
      }
      else if (player1.type === 2)
      {
-        attacking(1,2);
+        attacking(1,2,1);
      }
      else if (player1.type === 3)
      {
-        attacking(1,3);
+        attacking(1,3,1);
+     }
+     disablin1();  
+  });
+  $('#attack2').click(function(){
+    socket.emit('attack2');
+  });
+  socket.on('attack2', function(num){
+    if (player1.type === 1)
+     {
+        attacking(1,1,2);
+     }
+     else if (player1.type === 2)
+     {
+        attacking(1,2,2);
+     }
+     else if (player1.type === 3)
+     {
+        attacking(1,3,2);
      }
      disablin1();  
   });
@@ -356,21 +828,39 @@
       disablin1();
     }
   });
-  $('#attack2').click(function(){
-    socket.emit('attack2');
+  $('#attack5').click(function(){
+    socket.emit('attack5');
   });
-  socket.on('attack2', function(num){
+  socket.on('attack5', function(num){
      if (player2.type === 1)
      {
-        attacking(2,1);
+        attacking(2,1,1);
      }
      else if (player2.type === 2)
      {
-        attacking(2,2);
+        attacking(2,2,1);
      }
      else if (player2.type === 3)
      {
-        attacking(2,3);
+        attacking(2,3,1);
+     }
+     disablin2();
+  });
+  $('#attack6').click(function(){
+    socket.emit('attack6');
+  });
+  socket.on('attack6', function(num){
+     if (player2.type === 1)
+     {
+        attacking(2,1,2);
+     }
+     else if (player2.type === 2)
+     {
+        attacking(2,2,2);
+     }
+     else if (player2.type === 3)
+     {
+        attacking(2,3,2);
      }
      disablin2();
   });
@@ -418,6 +908,7 @@
       selectplayer('redplayer');
       disallow('redplayer');
       setplayer('player1',1);
+      setlittlered(1);
     }
     else
     {
@@ -425,6 +916,7 @@
       selectplayer('redplayer');
       disallowplayers();
       setplayer('player2',1);
+      setlittlered(2);
       allow('play');
     }
 });
@@ -440,6 +932,7 @@
       disallow('blueplayer');
       setplayer('player1',2);
       setlittleblue(1);
+      setwaterspout(1);
     }
     else
     {
@@ -448,6 +941,7 @@
       disallowplayers();
       setplayer('player2',2);
       setlittleblue(2);
+      setwaterspout(2);
       allow('play');
     }
   });
